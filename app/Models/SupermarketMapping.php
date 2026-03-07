@@ -26,7 +26,7 @@ class SupermarketMapping extends Model
     }
 
     /**
-     * Segna il mapping come corretto manualmente (protegge da sovrascritture AI).
+     * Mark the mapping as manually fixed (protects against AI overrides).
      */
     public function markAsManual(): void
     {

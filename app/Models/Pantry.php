@@ -28,8 +28,7 @@ class Pantry extends Model
     }
 
     /**
-     * Stima i giorni rimanenti prima dell'esaurimento,
-     * basandosi sul consumo medio giornaliero.
+     * Estimates days remaining before exhaustion, based on the average daily consumption.
      */
     public function estimatedDaysRemaining(): ?float
     {
@@ -41,7 +40,7 @@ class Pantry extends Model
     }
 
     /**
-     * Restituisce true se la quantità è sotto la soglia minima.
+     * Returns true if the quantity is below the minimum threshold.
      */
     public function isBelowThreshold(): bool
     {
