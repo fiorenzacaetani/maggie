@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pantry extends Model
 {
+    protected $table = 'pantry';
     public $timestamps = false;
     protected $fillable = [
         'product_id',
