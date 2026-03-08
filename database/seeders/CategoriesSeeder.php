@@ -26,7 +26,8 @@ class CategoriesSeeder extends Seeder
             'Frutta',
             'Legumi',
             'Conserve e Sughi',
-            'Condimenti e Spezie',
+            'Condimenti',
+            'Spezie ed Erbe Aromatiche',
             'Olio, Aceto e Salse',
             'Dolci e Snack',
             'Bevande',
@@ -52,7 +53,8 @@ class CategoriesSeeder extends Seeder
 
             // Pane e Prodotti da Forno
             ['parent' => 'Pane e Prodotti da Forno', 'name' => 'Pane'],
-            ['parent' => 'Pane e Prodotti da Forno', 'name' => 'Grissini e Crackers'],
+            ['parent' => 'Pane e Prodotti da Forno', 'name' => 'Grissini'],
+            ['parent' => 'Pane e Prodotti da Forno', 'name' => 'Crackers'],
             ['parent' => 'Pane e Prodotti da Forno', 'name' => 'Farine'],
             ['parent' => 'Pane e Prodotti da Forno', 'name' => 'Lievito'],
 
@@ -61,7 +63,8 @@ class CategoriesSeeder extends Seeder
             ['parent' => 'Latticini e Uova',        'name' => 'Formaggi Freschi'],
             ['parent' => 'Latticini e Uova',        'name' => 'Formaggi Stagionati'],
             ['parent' => 'Latticini e Uova',        'name' => 'Yogurt'],
-            ['parent' => 'Latticini e Uova',        'name' => 'Burro e Panna'],
+            ['parent' => 'Latticini e Uova',        'name' => 'Burro'],
+            ['parent' => 'Latticini e Uova',        'name' => 'Panna'],
             ['parent' => 'Latticini e Uova',        'name' => 'Uova'],
 
             // Carne
@@ -77,16 +80,21 @@ class CategoriesSeeder extends Seeder
 
             // Salumi
             ['parent' => 'Salumi e Affettati',      'name' => 'Prosciutto'],
-            ['parent' => 'Salumi e Affettati',      'name' => 'Salame e Insaccati'],
+            ['parent' => 'Salumi e Affettati',      'name' => 'Salame'],
+            ['parent' => 'Salumi e Affettati',      'name' => 'Insaccati'],
             ['parent' => 'Salumi e Affettati',      'name' => 'Wurstel'],
 
             // Verdura
-            ['parent' => 'Verdura',                 'name' => 'Verdura a Foglia'],
-            ['parent' => 'Verdura',                 'name' => 'Pomodori'],
-            ['parent' => 'Verdura',                 'name' => 'Cipolle e Aglio'],
-            ['parent' => 'Verdura',                 'name' => 'Patate e Tuberi'],
-            ['parent' => 'Verdura',                 'name' => 'Zucchine e Melanzane'],
-            ['parent' => 'Verdura',                 'name' => 'Carote e Radici'],
+            ['parent' => 'Verdura',                   'name' => 'Verdura a Foglia'],
+            ['parent' => 'Verdura',                   'name' => 'Pomodori'],
+            ['parent' => 'Verdura',                   'name' => 'Cipolle'],
+            ['parent' => 'Verdura',                   'name' => 'Aglio'],
+            ['parent' => 'Verdura',                   'name' => 'Patate'],
+            ['parent' => 'Verdura',                   'name' => 'Tuberi'],
+            ['parent' => 'Verdura',                   'name' => 'Zucchine'],
+            ['parent' => 'Verdura',                   'name' => 'Melanzane'],
+            ['parent' => 'Verdura',                   'name' => 'Carote'],
+            ['parent' => 'Verdura',                   'name' => 'Radici'],
 
             // Frutta
             ['parent' => 'Frutta',                  'name' => 'Frutta Fresca'],
@@ -103,9 +111,27 @@ class CategoriesSeeder extends Seeder
             ['parent' => 'Conserve e Sughi',        'name' => 'Marmellate'],
 
             // Condimenti
-            ['parent' => 'Condimenti e Spezie',     'name' => 'Sale e Pepe'],
-            ['parent' => 'Condimenti e Spezie',     'name' => 'Erbe Aromatiche'],
-            ['parent' => 'Condimenti e Spezie',     'name' => 'Spezie'],
+            ['parent' => 'Condimenti',              'name' => 'Sale'],
+            ['parent' => 'Condimenti',              'name' => 'Pepe'],
+
+            // Spezie ed Erbe Aromatiche
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Salvia'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Rosmarino'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Prezzemolo'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Alloro'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Basilico'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Origano'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Timo'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Menta'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Curcuma'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Paprika'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Cannella'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Cumino'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Noce Moscata'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Zafferano'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Peperoncino'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Coriandolo'],
+            ['parent' => 'Spezie ed Erbe Aromatiche', 'name' => 'Cardamomo'],
 
             // Olio e Salse
             ['parent' => 'Olio, Aceto e Salse',     'name' => 'Olio d\'Oliva'],
@@ -121,10 +147,13 @@ class CategoriesSeeder extends Seeder
 
             // Bevande
             ['parent' => 'Bevande',                 'name' => 'Acqua'],
-            ['parent' => 'Bevande',                 'name' => 'Succhi e Nettari'],
+            ['parent' => 'Bevande',                 'name' => 'Succhi'],
+            ['parent' => 'Bevande',                 'name' => 'Nettari'],
             ['parent' => 'Bevande',                 'name' => 'Bibite'],
-            ['parent' => 'Bevande',                 'name' => 'Caffè e Tè'],
-            ['parent' => 'Bevande',                 'name' => 'Vino e Birra'],
+            ['parent' => 'Bevande',                 'name' => 'Caffè'],
+            ['parent' => 'Bevande',                 'name' => 'Tè'],
+            ['parent' => 'Bevande',                 'name' => 'Vino'],
+            ['parent' => 'Bevande',                 'name' => 'Birra'],
 
             // Surgelati
             ['parent' => 'Surgelati',               'name' => 'Verdure Surgelate'],
@@ -138,7 +167,8 @@ class CategoriesSeeder extends Seeder
             ['parent' => 'Pulizia Casa',            'name' => 'Carta e Sacchetti'],
 
             // Igiene Personale
-            ['parent' => 'Igiene Personale',        'name' => 'Shampoo e Balsamo'],
+            ['parent' => 'Igiene Personale',        'name' => 'Shampoo'],
+            ['parent' => 'Igiene Personale',        'name' => 'Balsamo'],
             ['parent' => 'Igiene Personale',        'name' => 'Sapone e Doccia'],
             ['parent' => 'Igiene Personale',        'name' => 'Dentifricio e Spazzolino'],
             ['parent' => 'Igiene Personale',        'name' => 'Carta Igienica'],
