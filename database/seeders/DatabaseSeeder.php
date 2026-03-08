@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UnitsSeeder::class,
             CategoriesSeeder::class,
+            SupermarketLayoutsSeeder::class, // dipende da CategoriesSeeder
         ]);
     }
 }
