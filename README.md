@@ -2,6 +2,8 @@
 
 > **⚠️ Work in Progress** — This project is in active development. The architecture is defined, the foundation is laid, and the backlog is fully planned. What you see here is a snapshot of a project being built with intention, not a finished product.
 
+> **AI Disclosure** — The architecture and design of this project emerged from several days of collaborative discussion with Claude (Anthropic). The initial scaffolding was set up under Claude's guidance. The code is being written by me, with Claude available as an assistant. The ideas, product decisions, and domain logic are entirely mine.
+
 ---
 
 ## The Problem
@@ -138,7 +140,7 @@ The `OllamaService` communicates with the local Ollama REST API (`http://localho
 
 ```bash
 # Clone and install dependencies
-git clone https://github.com/your-username/maggie.git
+git clone https://github.com/fiorenzacaetani/maggie.git
 cd maggie
 composer install
 
