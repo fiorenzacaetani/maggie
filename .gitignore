@@ -24,3 +24,4 @@ Homestead.yaml
 Thumbs.db
 maggie.code-workspace
 .php-cs-fixer.php
+.editorconfig
