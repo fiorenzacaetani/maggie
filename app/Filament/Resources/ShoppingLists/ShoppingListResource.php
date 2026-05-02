@@ -22,6 +22,9 @@ class ShoppingListResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?string $modelLabel = 'Shopping List Item';
+    protected static ?string $pluralModelLabel = 'Shopping List';
+
     public static function form(Schema $schema): Schema
     {
         return ShoppingListForm::configure($schema);

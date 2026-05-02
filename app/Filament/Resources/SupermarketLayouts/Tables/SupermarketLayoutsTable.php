@@ -16,8 +16,10 @@ class SupermarketLayoutsTable
         return $table
             ->columns([
                 TextColumn::make('retailer_name')
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('category.name')
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('aisle_order')
                     ->numeric()

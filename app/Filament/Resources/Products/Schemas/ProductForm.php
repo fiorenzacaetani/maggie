@@ -35,6 +35,10 @@ class ProductForm
                     ->maxLength(255)
                     ->required(),
 
+                // TODO: la lista dei simboli è hardcoded — le unità aggiunte al db non compaiono
+                // automaticamente. Soluzione: aggiungere colonna `group` a tabella `units` e
+                // raggruppare dinamicamente con Unit::all()->groupBy('group').
+                // Vedi Story da creare in backlog Epica 1 o Epica 5.
                 Select::make('base_unit_id')
                     ->label('Unità di misura')
                     ->options(function () {
@@ -42,7 +46,7 @@ class ProductForm
                             'Peso'          => ['g', 'hg', 'kg'],
                             'Volume'        => ['ml', 'cl', 'l'],
                             'Conteggio'     => ['pz', 'conf', 'fette', 'mazzo'],
-                            'Misure cucina' => ['cucch', 'cucch.ni', 'tazze', 'pizzico', 'spicchi', 'foglie'],
+                            'Misure cucina' => ['cucch', 'cucch.ni', 'tazze', 'pizzico', 'spicchi', 'foglie', 'dozzina', '1/2 dozzina'],
                         ];
 
                         $result = [];

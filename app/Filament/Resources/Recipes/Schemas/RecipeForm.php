@@ -6,8 +6,8 @@ use App\Models\Category;
 use App\Models\Unit;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
@@ -37,7 +37,7 @@ class RecipeForm
                     ->relationship('ingredients')
                     ->schema([
                         Select::make('category_id')
-                            ->label('Categoria')
+                            ->label('Ingrediente')
                             ->options(
                                 Category::whereNotNull('parent_id')
                                     ->orderBy('name')

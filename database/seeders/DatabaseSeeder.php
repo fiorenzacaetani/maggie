@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             UnitsSeeder::class,
             CategoriesSeeder::class,
             SupermarketLayoutsSeeder::class, // dipende da CategoriesSeeder
+            ProductsSeeder::class,           // dipende da CategoriesSeeder e UnitsSeeder
         ]);
     }
 }
