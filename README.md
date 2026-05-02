@@ -1,59 +1,171 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🧺 Maggie — AI-Powered Pantry & Shopping Assistant
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> **⚠️ Work in Progress** — This project is in active development. The architecture is defined, the foundation is laid, and the backlog is fully planned. What you see here is a snapshot of a project being built with intention, not a finished product.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## The Problem
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Managing a home pantry is a surprisingly complex cognitive task. You need to remember what you have, what's running low, what you need to buy, how you usually consume things, and in what order your supermarket is laid out — all at once, every week.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Maggie is designed to eliminate that mental overhead entirely.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## What Maggie Will Do
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Maggie is a personal assistant that manages your pantry and shopping list through natural language — voice messages, text, or photos of receipts — via a Telegram bot, backed by a local AI engine.
 
-## Laravel Sponsors
+**Core features (planned):**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- 🗣️ **Natural language input** — "I just finished the olive oil" or a photo of a grocery receipt updates the pantry automatically
+- 📦 **Predictive inventory** — tracks daily consumption rates and alerts you before things run out
+- 🛒 **Smart shopping list** — auto-generated from predicted shortfalls, merged with manual additions; the system never overwrites what you added by hand
+- 🗺️ **Supermarket routing** — shopping list sorted by aisle order for your specific supermarket, so you never backtrack
+- 🍳 **Recipe-aware stock management** — cooking a recipe automatically deducts ingredients from the pantry
+- 📊 **Control dashboard** — full visibility and manual control via a FilamentPHP admin interface
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Architecture & Stack
+
+Maggie is built with a deliberate, opinionated stack:
+
+| Layer | Technology | Why |
+| :--- | :--- | :--- |
+| **Backend** | PHP 8.5 + Laravel 12 | Mature, expressive, excellent ecosystem |
+| **Database** | MySQL 8.4 | Relational integrity for inventory & mapping data |
+| **Queue** | Redis | Async jobs for consumption recalculation |
+| **Infrastructure** | Docker via Laravel Sail | Reproducible local environment |
+| **AI Engine** | Ollama (local) + Whisper.cpp | Zero API cost, privacy-first, no external dependencies |
+| **Bot Interface** | Telegram Bot API | Fast, friction-free daily input |
+| **Dashboard** | FilamentPHP 5.x | Rapid, polished admin UI |
+
+### AI Architecture decision
+
+The initial design used OpenAI (Whisper + GPT-4o). This was replaced with a fully local stack — Ollama running on Apple Silicon (M5, 24GB RAM) with Whisper.cpp for speech recognition. The application layer is provider-agnostic: if a local model proves insufficient for semantic parsing quality, switching to an external API requires changing a single service class.
+
+### Database design highlights
+
+The schema was designed from the ground up to support AI-driven workflows:
+
+- **SI unit normalisation** — all quantities stored in a base unit (grams/ml) internally; the user can say "a bag", "500 grams", or "two packs" and the system handles conversion
+- **Semantic alias table** — `product_aliases` keeps natural language synonyms separate from the canonical product registry, keeping the master data clean
+- **Transactional consumption log** — `inventory_logs` records every movement (restock, consumption, recipe cooking, AI prediction) as an immutable log; `avg_consumption_daily` is derived from this, not stored as a guess
+- **Recipe abstraction** — recipe ingredients are linked to *categories*, not specific products; "any pasta" satisfies a pasta ingredient, regardless of brand or format
+- **Human override protection** — `supermarket_mappings` has a `match_type ENUM('AUTO', 'MANUAL')` column; the AI never overwrites a mapping a human has manually corrected
+- **Shopping list model** — single rolling list (no sessions); `source ENUM('auto', 'manual')` distinguishes system-generated rows from user additions; manual rows are never touched by automation
+
+Current schema: **11 migrations, 14 tables**.
+
+---
+
+## Project Status
+
+This project is tracked as a backlog of Epics and Stories on GitHub Projects, defined in Gherkin format for behavioural verification.
+
+| Epic | Description | Status |
+| :--- | :--- | :--- |
+| **1** | Infrastructure & Foundation | 🟡 In progress |
+| **2** | Core Pantry Engine | 🔵 In progress |
+| **3** | AI Intelligence Layer | ⚪ Planned |
+| **4** | Telegram Interface | ⚪ Planned |
+| **5** | Control Dashboard | ⚪ Planned |
+| **6** | External Integration (Shopping) | ⚪ Planned |
+
+### What's already built
+
+**Epic 1 — Infrastructure & Foundation** is largely complete:
+
+- ✅ Full database schema — 11 migrations, all Eloquent models with relationships
+- ✅ FilamentPHP 5.x installed and configured
+- ✅ Filament CRUD resources: Products, Categories, Recipes (with ingredient repeater), Pantry
+- ✅ Seeders: 16 measurement units, 17 top-level categories with ~60 subcategories
+- ✅ Docker environment (Laravel Sail) — fully reproducible local setup
+
+**Epic 2 — Core Pantry Engine** is underway:
+
+- ✅ `shopping_list` migration, model, and Filament CRUD
+- ✅ `supermarket_layouts` migration, model, seeder (default Italian supermarket aisle order), and Filament CRUD
+- 🔲 Inventory movement service (load/unload → `inventory_logs`)
+- 🔲 Scheduled job for `avg_consumption_daily` recalculation
+- 🔲 Minimum threshold alert logic
+- 🔲 Automatic shopping list generation from depletion prediction
+- 🔲 Recipe cooking registration (ingredient deduction)
+- 🔲 Shopping list sorting by supermarket layout
+
+### What's next
+
+Epic 3 (AI Layer) is blocked pending hardware: an Apple M5 MacBook Air (24GB) is the planned Ollama host. Once available, the plan is to benchmark Llama 3.3 70B Q4 against Qwen 2.5 32B on Italian-language semantic parsing tasks before committing to a model.
+
+---
+
+## How the AI Layer Works
+
+Maggie acts as a translation layer between human language and SQL:
+
+```
+User input (voice/text/photo)
+        ↓
+  Whisper.cpp (speech-to-text, if voice)
+        ↓
+  Ollama (semantic parsing → structured JSON)
+        ↓
+  Laravel service layer (executes action on DB)
+        ↓
+  Telegram response to user
+```
+
+Example AI output for "the pasta is almost finished":
+
+```json
+{
+  "action": "UPDATE_INVENTORY",
+  "params": {
+    "product": "pasta",
+    "quantity": 0,
+    "unit": "pacco"
+  },
+  "user_message": "Got it — pasta is almost out. I've added it to your shopping list!"
+}
+```
+
+The `OllamaService` communicates with the local Ollama REST API (`http://localhost:11434`). The application layer is fully decoupled from the AI provider.
+
+---
+
+## Local Development Setup
+
+```bash
+# Clone and install dependencies
+git clone https://github.com/your-username/maggie.git
+cd maggie
+composer install
+
+# Copy environment file and configure your .env
+cp .env.example .env
+
+# Start Docker environment
+./vendor/bin/sail up -d
+
+# Run migrations and seeders
+./vendor/bin/sail artisan migrate
+./vendor/bin/sail artisan db:seed
+
+# Access Filament dashboard
+# http://localhost/admin
+```
+
+> Ollama is not required to run the application in its current state. The AI layer is not yet integrated — Epic 3 is planned but not started.
+
+---
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+This is a personal project and not currently open to external contributions. The repository is public for visibility and portfolio purposes. Feel free to open an issue if you spot something interesting or have a question about the architecture.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MIT
