@@ -164,8 +164,3 @@ cp .env.example .env
 
 This is a personal project and not currently open to external contributions. The repository is public for visibility and portfolio purposes. Feel free to open an issue if you spot something interesting or have a question about the architecture.
 
----
-
-## License
-
-MIT
